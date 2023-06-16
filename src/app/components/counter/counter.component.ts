@@ -1,16 +1,12 @@
-import {Component, signal} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {COUNTER_INITAL_VALUE} from "../../model/counter";
+import { Component, signal } from '@angular/core';
+import { COUNTER_INITAL_VALUE as COUNTER_INITIAL_VALUE } from '../../model/counter';
 
 @Component({
   selector: 'app-counter',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './counter.component.html',
-  styleUrls: ['./counter.component.scss']
+  styleUrls: ['./counter.component.scss'],
 })
 export class CounterComponent {
-
   public counter = signal(0);
 
   counterAugment() {
@@ -22,6 +18,6 @@ export class CounterComponent {
   }
 
   counterReset() {
-    this.counter.set(COUNTER_INITAL_VALUE);
+    this.counter.set(COUNTER_INITIAL_VALUE);
   }
 }

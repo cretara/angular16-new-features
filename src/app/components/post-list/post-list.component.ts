@@ -1,18 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Post} from "../../model/post";
-import {NgForOf, NgIf} from "@angular/common";
-import {PostService} from "../../services/post.service";
-import {Subscription} from "rxjs";
+import { NgForOf, NgIf } from "@angular/common";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from "rxjs";
+import { PostDataService } from 'src/app/model/entities/post-data.service';
+import { Post } from "../../model/post";
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
-  imports: [
-    NgIf,
-    NgForOf,
-  ],
-  standalone: true
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
@@ -20,7 +15,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   private postListSubscription: Subscription = new Subscription();
 
-  constructor(private postService: PostService) {
+  constructor(private postDataService: PostDataService) {
 
   }
 
@@ -33,10 +28,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.postListSubscription = this.postService.getPostsFromAPI()
-      .subscribe((postsResponse) => {
-        this.postList = postsResponse
-      })
+      this.postDataService.getAll();
   }
 
 }
