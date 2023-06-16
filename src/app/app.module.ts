@@ -8,6 +8,8 @@ import { AppComponent } from './components/app.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { angular16EntityConfig } from './model/entity';
+import { EntityStoreModule } from './model/entities-store.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent, PostListComponent, CounterComponent],
@@ -16,7 +18,9 @@ import { angular16EntityConfig } from './model/entity';
     HttpClientModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 30 }),
     EntityDataModule.forRoot(angular16EntityConfig),
+    EntityStoreModule
   ],
   bootstrap: [AppComponent],
 })

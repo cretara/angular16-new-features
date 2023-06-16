@@ -1,8 +1,7 @@
-import { NgForOf, NgIf } from "@angular/common";
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from "rxjs";
-import { PostDataService } from 'src/app/model/entities/post-data.service';
-import { Post } from "../../model/post";
+import { Observable, Subscription, of } from 'rxjs';
+import { PostEntityService } from 'src/app/model/entities/post-entity.service';
+import { Post } from '../../model/post';
 
 @Component({
   selector: 'app-post-list',
@@ -11,24 +10,23 @@ import { Post } from "../../model/post";
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
-  public postList: Post[] = [];
-
   private postListSubscription: Subscription = new Subscription();
 
-  constructor(private postDataService: PostDataService) {
+  public postList$: Observable<Post[]> = of([]);
 
-  }
+  constructor(private postEntityService: PostEntityService) {}
 
   postTrackBy(index: number, singlePost: Post): number {
     return singlePost.id;
-  };
+  }
 
   ngOnDestroy(): void {
     this.postListSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-      this.postDataService.getAll();
+    this.postList$ = this.postEntityService.entities$;
+    this.postEntityService.clearCache();
+    this.postEntityService.getAll();
   }
-
 }
