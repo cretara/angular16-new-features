@@ -1,9 +1,9 @@
-import { EntityMetadataMap } from "@ngrx/data";
+import { EntityDataModuleConfig, EntityMetadataMap } from '@ngrx/data';
 
-export const entityMetadata: EntityMetadataMap = {
+export const entityMetadataMap: EntityMetadataMap = {
+  Post: {},
+};
 
-    Post: {
-        
-    }
-
-}
+export const angular16EntityConfig: EntityDataModuleConfig = {
+    entityMetadata: entityMetadataMap
+  };
