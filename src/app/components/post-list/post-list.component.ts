@@ -1,42 +1,27 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Post} from "../../model/post";
-import {NgForOf, NgIf} from "@angular/common";
-import {PostService} from "../../services/post.service";
-import {Subscription} from "rxjs";
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { PostEntityService } from 'src/app/model/entities/post-entity.service';
+import { Post } from '../../model/post';
+import { Observable, async, of } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
-  imports: [
-    NgIf,
-    NgForOf,
-  ],
-  standalone: true
+  imports: [NgIf, NgForOf, AsyncPipe],
+  standalone: true,
 })
-export class PostListComponent implements OnInit, OnDestroy {
+export class PostListComponent implements OnInit {
+  public postList: Observable<Post[]> = of([]);
 
-  public postList: Post[] = [];
-
-  private postListSubscription: Subscription = new Subscription();
-
-  constructor(private postService: PostService) {
-
-  }
+  constructor(private postEntityService: PostEntityService) {}
 
   postTrackBy(index: number, singlePost: Post): number {
     return singlePost.id;
-  };
-
-  ngOnDestroy(): void {
-    this.postListSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.postListSubscription = this.postService.getPostsFromAPI()
-      .subscribe((postsResponse) => {
-        this.postList = postsResponse
-      })
+    this.postList = this.postEntityService.entities$;
+    this.postEntityService.getAll();
   }
-
 }

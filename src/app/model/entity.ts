@@ -5,5 +5,5 @@ export const entityMetadataMap: EntityMetadataMap = {
 };
 
 export const angular16EntityConfig: EntityDataModuleConfig = {
-    entityMetadata: entityMetadataMap
-  };
+  entityMetadata: entityMetadataMap,
+};
