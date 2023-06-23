@@ -1,8 +1,8 @@
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { PostEntityService } from 'src/app/model/entities/post-entity.service';
 import { Post } from '../../model/post';
-import { Observable, async, of } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
