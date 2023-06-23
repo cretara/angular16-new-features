@@ -5,11 +5,12 @@ import {
   inject,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { EntityDataService } from '@ngrx/data';
+import { EntityDataService, provideEntityData, withEffects } from '@ngrx/data';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { appRoutes } from './app/app.routes';
 import { PostDataService } from './app/model/entities/post-data.service';
+import { angular16EntityConfig } from './app/model/entity';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideStore(),
     provideEffects(),
+    provideEntityData(angular16EntityConfig, withEffects()),
     PostDataService,
     {
       provide: ENVIRONMENT_INITIALIZER,
